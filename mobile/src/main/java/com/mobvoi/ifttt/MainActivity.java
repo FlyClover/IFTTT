@@ -1,9 +1,12 @@
 package com.mobvoi.ifttt;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.mobvoi.ifttt.action.Action;
+import com.mobvoi.ifttt.trigger.Trigger;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -12,6 +15,19 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        RecipeManager.init(this);
+        Recipe.Model recipeModel = new Recipe.Model();
+        recipeModel.action = new Action.Model();
+        recipeModel.action.desc = "{}";
+        recipeModel.action.type = "notification";
+        recipeModel.trigger = new Trigger.Model();
+        recipeModel.trigger.desc = "{}";
+        recipeModel.trigger.type = "weather";
+        RecipeManager.getInstance().addRecipe(recipeModel);
+        RecipeManager.getInstance().startCheck();
+//
+//        RecipeManager.getInstance().getRecipes();
+
     }
 
 

@@ -1,9 +1,13 @@
 package com.mobvoi.ifttt;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
 import android.widget.TextView;
+
+import com.mobvoi.android.common.api.MobvoiApiClient;
+import com.mobvoi.android.wearable.Wearable;
 
 public class MainActivity extends Activity {
 
