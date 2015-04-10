@@ -61,9 +61,8 @@ public class RecipeListActivity extends ActionBarActivity {
 
     private void setupCardList() {
         ArrayList<Card> cards = new ArrayList<Card>();
-
-        cards.add(getRecipeCard(R.drawable.list_w_4));
         cards.add(getRecipeCard(R.drawable.list_w_3));
+        cards.add(getRecipeCard(R.drawable.list_w_4));
         cards.add(getRecipeCard(R.drawable.list_w_2));
         cards.add(getRecipeCard(R.drawable.list_w_1));
 

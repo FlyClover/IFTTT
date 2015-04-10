@@ -72,6 +72,7 @@ public class RecipeCategoryActivity extends ActionBarActivity {
         cards.add(getCard(R.drawable.pic_3));
         cards.add(getCard(R.drawable.pic_2));
         cards.add(getCard(R.drawable.pic_1));
+        cards.add(getCard(R.drawable.pic_4));
 
         CardArrayRecyclerViewAdapter mCardArrayAdapter = new CardArrayRecyclerViewAdapter(this, cards);
 
