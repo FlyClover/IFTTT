@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.mobvoi.ifttt.action.Action;
+import com.mobvoi.ifttt.trigger.Trigger;
+
 
 public class WeatherRecipeActivity extends ActionBarActivity {
 
@@ -29,6 +32,15 @@ public class WeatherRecipeActivity extends ActionBarActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Recipe.Model recipeModel = new Recipe.Model();
+                recipeModel.action = new Action.Model();
+                recipeModel.action.desc = "{}";
+                recipeModel.action.type = "notification";
+                recipeModel.trigger = new Trigger.Model();
+                recipeModel.trigger.desc = "{}";
+                recipeModel.trigger.type = "weather";
+                RecipeManager.getInstance().addRecipe(recipeModel);
+
                 Toast.makeText(WeatherRecipeActivity.this, "Recipe added", Toast.LENGTH_SHORT).show();
                 finish();
             }

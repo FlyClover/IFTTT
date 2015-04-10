@@ -38,6 +38,9 @@ public class RecipeCategoryActivity extends ActionBarActivity {
                 }
             });
         }
+
+        RecipeManager.init(this);
+        RecipeManager.getInstance().startCheck();
     }
 
 
