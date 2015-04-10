@@ -3,4 +3,7 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_recipe_list">RecipeListActivity</string>
+    <string name="title_activity_weather_recipe">WeatherRecipeActivity</string>
+    <string name="title_activity_if_then">IfThenActivity</string>
 </resources>
