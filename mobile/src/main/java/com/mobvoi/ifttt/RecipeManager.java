@@ -33,20 +33,22 @@ public class RecipeManager {
             Log.e(TAG, "RecipeManager is not initialized");
         }
         mDbHelper = new DBHelper(mContext);
-        mDbHelper.deleteAllRecipe();
+//        mDbHelper.deleteAllRecipe();
     }
 
     public void startCheck() {
         new Thread() {
             public void run() {
-                try {
-                    Thread.sleep(10000);
-                } catch (InterruptedException e) {
-                }
-                List<Recipe> recipes = getRecipes();
-                Log.i(TAG, "start check recipe, size=" + recipes.size());
-                for (Recipe recipe : recipes) {
-                    recipe.check();
+                while (true) {
+                    try {
+                        Thread.sleep(10000);
+                    } catch (InterruptedException e) {
+                    }
+                    List<Recipe> recipes = getRecipes();
+                    Log.i(TAG, "start check recipe, size=" + recipes.size());
+                    for (Recipe recipe : recipes) {
+                        recipe.check();
+                    }
                 }
             }
         }.start();
