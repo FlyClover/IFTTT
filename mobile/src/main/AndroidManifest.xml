@@ -27,7 +27,11 @@
         <activity
             android:name=".IfThenActivity"
             android:label="@string/title_activity_if_then"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name=".TrafficRecipeActivity"
+            android:label="@string/title_activity_traffic_recipe" >
         </activity>
     </application>
 

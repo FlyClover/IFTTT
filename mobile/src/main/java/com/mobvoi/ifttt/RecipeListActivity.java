@@ -29,16 +29,30 @@ public class RecipeListActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_list);
 
+        Intent intent = getIntent();
+
+        ImageView imageView = (ImageView) findViewById(R.id.header_pic);
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
             ab.setDisplayHomeAsUpEnabled(true);
-            ab.setTitle("天气 Weather");
+            switch (intent.getStringExtra(RecipeCategoryActivity.EXTRA_RECIPE_CATEGORY)) {
+                case RecipeCategoryActivity.CATEGORY_MOVIE:
+                    ab.setTitle("电影 Movie");
+                    imageView.setImageResource(R.drawable.pic_list_2);
+                    setupMovieCardList();
+                    break;
+                case RecipeCategoryActivity.CATEGORY_TRAFFIC:
+                    ab.setTitle("路况 Traffic");
+                    imageView.setImageResource(R.drawable.traffic);
+                    setupTrafficCardList();
+                    break;
+                default:
+                    ab.setTitle("天气 Weather");
+                    imageView.setImageResource(R.drawable.pic_list_1);
+                    setupWeatherCardList();
+                    break;
+            }
         }
-
-        ImageView imageView = (ImageView) findViewById(R.id.header_pic);
-        imageView.setImageResource(R.drawable.pic_list_1);
-
-        setupCardList();
     }
 
 
@@ -59,12 +73,19 @@ public class RecipeListActivity extends ActionBarActivity {
         }
     }
 
-    private void setupCardList() {
+    private void setupMovieCardList() {
+        Card.OnCardClickListener listener = new Card.OnCardClickListener() {
+            @Override
+            public void onClick(Card card, View view) {
+                Intent intent = new Intent(view.getContext(), WeatherRecipeActivity.class);
+                startActivity(intent);
+            }
+        };
+
         ArrayList<Card> cards = new ArrayList<Card>();
-        cards.add(getRecipeCard(R.drawable.list_w_3));
-        cards.add(getRecipeCard(R.drawable.list_w_4));
-        cards.add(getRecipeCard(R.drawable.list_w_2));
-        cards.add(getRecipeCard(R.drawable.list_w_1));
+        cards.add(getRecipeCard(R.drawable.list_m_1, listener));
+        cards.add(getRecipeCard(R.drawable.list_m_2, listener));
+        cards.add(getRecipeCard(R.drawable.list_m_3, listener));
 
         CardArrayRecyclerViewAdapter mCardArrayAdapter = new CardArrayRecyclerViewAdapter(this, cards);
 
@@ -75,19 +96,59 @@ public class RecipeListActivity extends ActionBarActivity {
         mRecyclerView.setAdapter(mCardArrayAdapter);
     }
 
-    private Card getRecipeCard(int resourceId) {
-        Card card = new Card(this);
-        card.setBackgroundColorResourceId(R.color.background);
-        CardThumbnail thumbnail = new CardThumbnail(this);
-        thumbnail.setDrawableResource(resourceId);
-        card.addCardThumbnail(thumbnail);
-        card.addPartialOnClickListener(Card.CLICK_LISTENER_ALL_VIEW, new Card.OnCardClickListener() {
+    private void setupWeatherCardList() {
+        Card.OnCardClickListener listener = new Card.OnCardClickListener() {
             @Override
             public void onClick(Card card, View view) {
                 Intent intent = new Intent(view.getContext(), WeatherRecipeActivity.class);
                 startActivity(intent);
             }
-        });
+        };
+
+        ArrayList<Card> cards = new ArrayList<Card>();
+        cards.add(getRecipeCard(R.drawable.list_w_3, listener));
+        cards.add(getRecipeCard(R.drawable.list_w_4, listener));
+        cards.add(getRecipeCard(R.drawable.list_w_2, listener));
+        cards.add(getRecipeCard(R.drawable.list_w_1, listener));
+
+        CardArrayRecyclerViewAdapter mCardArrayAdapter = new CardArrayRecyclerViewAdapter(this, cards);
+
+        //Staggered grid view
+        CardRecyclerView mRecyclerView = (CardRecyclerView) findViewById(R.id.recipe_list);
+        mRecyclerView.setHasFixedSize(false);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setAdapter(mCardArrayAdapter);
+    }
+
+    private void setupTrafficCardList() {
+        Card.OnCardClickListener listener = new Card.OnCardClickListener() {
+            @Override
+            public void onClick(Card card, View view) {
+                Intent intent = new Intent(view.getContext(), TrafficRecipeActivity.class);
+                startActivity(intent);
+            }
+        };
+
+        ArrayList<Card> cards = new ArrayList<Card>();
+        cards.add(getRecipeCard(R.drawable.list_t_1, listener));
+        cards.add(getRecipeCard(R.drawable.list_t_2, listener));
+
+        CardArrayRecyclerViewAdapter mCardArrayAdapter = new CardArrayRecyclerViewAdapter(this, cards);
+
+        //Staggered grid view
+        CardRecyclerView mRecyclerView = (CardRecyclerView) findViewById(R.id.recipe_list);
+        mRecyclerView.setHasFixedSize(false);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setAdapter(mCardArrayAdapter);
+    }
+
+    private Card getRecipeCard(int resourceId, Card.OnCardClickListener listener) {
+        Card card = new Card(this);
+        card.setBackgroundColorResourceId(R.color.background);
+        CardThumbnail thumbnail = new CardThumbnail(this);
+        thumbnail.setDrawableResource(resourceId);
+        card.addCardThumbnail(thumbnail);
+        card.addPartialOnClickListener(Card.CLICK_LISTENER_ALL_VIEW, listener);
 
         return card;
     }

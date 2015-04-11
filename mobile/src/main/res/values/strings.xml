@@ -6,4 +6,5 @@
     <string name="title_activity_recipe_list">RecipeListActivity</string>
     <string name="title_activity_weather_recipe">WeatherRecipeActivity</string>
     <string name="title_activity_if_then">IfThenActivity</string>
+    <string name="title_activity_traffic_recipe">TrafficRecipeActivity</string>
 </resources>
