@@ -1,7 +1,6 @@
 package com.mobvoi.ifttt;
 
 import android.app.Notification;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 
@@ -20,7 +19,7 @@ public class DataLayoutService extends WearableListenerService {
     public void onMessageReceived(MessageEvent messageEvent) {
         Log.i(TAG, "receive message=" + messageEvent.getPath() + ", " + new String(messageEvent.getData()));
         if (messageEvent.getPath().equals("/ifttt")) {
-            Notification.Builder builder = new Notification.Builder(this).setContentText(new String(messageEvent.getData())).setContentTitle("IFTTT").setSmallIcon(this.getApplicationInfo().icon);
+            Notification.Builder builder = new Notification.Builder(this).setContentText(new String(messageEvent.getData())).setContentTitle("COC").setSmallIcon(this.getApplicationInfo().icon);
             NotificationManagerCompat.from(this).notify(1, builder.build());
         }
     }
