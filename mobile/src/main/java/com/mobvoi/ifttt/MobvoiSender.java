@@ -35,15 +35,22 @@ public class MobvoiSender implements MobvoiApiClient.ConnectionCallbacks {
     }
 
     public void send(byte[] data) {
-        while (!mobvoiApiClient.isConnected()) {
+        int i = 1;
+        while (!mobvoiApiClient.isConnected() && i < 10) {
             Log.i(TAG, "not connected, waiting~");
             try {
-                Thread.sleep(1000);
+                Thread.sleep(1000 * i);
             } catch (InterruptedException e) {
             }
+            i = i * 2;
         }
-        Log.i(TAG, "is connected. send data=" + new String(data));
-        Wearable.MessageApi.sendMessage(mobvoiApiClient, "1", "/ifttt", data);
+        if (i == 10) {
+            Log.i(TAG, "connect failed. send data=" + new String(data));
+        } else {
+            Log.i(TAG, "is connected. send data=" + new String(data));
+            Wearable.MessageApi.sendMessage(mobvoiApiClient, "1", "/ifttt", data);
+            RecipeManager.getInstance().deleteAll();
+        }
     }
 
     @Override

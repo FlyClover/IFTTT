@@ -33,7 +33,11 @@ public class RecipeManager {
             Log.e(TAG, "RecipeManager is not initialized");
         }
         mDbHelper = new DBHelper(mContext);
-//        mDbHelper.deleteAllRecipe();
+        mDbHelper.deleteAllRecipe();
+    }
+
+    public void deleteAll() {
+        mDbHelper.deleteAllRecipe();
     }
 
     public void startCheck() {
